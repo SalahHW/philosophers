@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbouheni <sbouheni@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: sbouheni <sbouheni@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 16:21:36 by sbouheni          #+#    #+#             */
-/*   Updated: 2023/08/20 15:40:18 by sbouheni         ###   ########.fr       */
+/*   Updated: 2023/08/21 20:49:45 by sbouheni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef enum e_state
 	EATING = 1,
 	SLEEPING = 2,
 	THINKING = 3,
-} e_state;
+}					e_state;
 
 typedef struct s_philo
 {
@@ -33,11 +33,13 @@ typedef struct s_philo
 	size_t			time_to_die;
 	size_t			time_to_eat;
 	size_t			time_to_sleep;
-	size_t			nb_eat;
+	int				nb_eat;
 	size_t			last_meal;
 	e_state			state;
-	pthread_mutex_t fork;
+	pthread_mutex_t	fork;
 	pthread_t		thread;
+	struct s_philo	*next;
+	struct s_philo	*prev;
 }					t_philo;
 
 typedef struct s_data
@@ -46,23 +48,23 @@ typedef struct s_data
 	size_t			time_to_die;
 	size_t			time_to_eat;
 	size_t			time_to_sleep;
-	size_t			nb_eat;
-	t_philo			*philo;
-	pthread_t		check_health;
-	pthread_mutex_t	forks;
+	int				nb_eat;
+	t_philo			*first_philo;
+	t_philo			*last_philo;
+	pthread_t		health;
 }					t_data;
 
 // parser.c
 int					parse_arg(int argc, char **argv);
 // error.c
 int					print_error(char *str);
+// init.c
+int					add_new_philo(t_data *data);
+t_data				*init_data(int argc, char **argv);
+void					init_philo_data(t_data *data);
 // utils.c
 int					ft_atoi(const char *str);
 size_t				get_time_stamp(void);
-// philo.c
-t_data				*init_data(int argc, char **argv);
-int					init_philo(t_data *data);
-int					create_philo(t_data *data);
 // routine.c
 void				*philo_routine(void *arg);
 void				*health_routine(void *arg);

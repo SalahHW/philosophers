@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sbouheni <sbouheni@student.42mulhouse.fr>  +#+  +:+       +#+         #
+#    By: sbouheni <sbouheni@student.42mulhouse.f    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/18 17:23:05 by sbouheni          #+#    #+#              #
-#    Updated: 2023/08/20 14:22:27 by sbouheni         ###   ########.fr        #
+#    Updated: 2023/08/21 18:32:24 by sbouheni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,8 +18,8 @@ SRCS	=			main.c														\
 					parser.c													\
 					error.c														\
 					utils.c														\
-					philo.c														\
 					routine.c													\
+					init.c														\
 
 OBJS	=			$(SRCS:.c=.o)
 

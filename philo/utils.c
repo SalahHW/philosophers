@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbouheni <sbouheni@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: sbouheni <sbouheni@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 16:44:50 by sbouheni          #+#    #+#             */
-/*   Updated: 2023/08/20 12:09:01 by sbouheni         ###   ########.fr       */
+/*   Updated: 2023/08/21 22:56:58 by sbouheni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,7 @@ int	ft_atoi(const char *str)
 	if (*str == '-' || *str == '+')
 	{
 		if (*str == '-')
-		{
 			sign *= -1;
-		}
 		str++;
 	}
 	while (*str >= '0' && *str <= '9')
@@ -44,6 +42,6 @@ size_t get_time_stamp(void)
 	size_t timestamp;
 
 	gettimeofday(&time, NULL);
-	timestamp = (time.tv_usec) ;
+	timestamp = (size_t)time.tv_sec * 1000 + (size_t)time.tv_usec / 1000;
 	return (timestamp);
 }
