@@ -6,7 +6,7 @@
 /*   By: sbouheni <sbouheni@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 16:44:50 by sbouheni          #+#    #+#             */
-/*   Updated: 2023/08/21 22:56:58 by sbouheni         ###   ########.fr       */
+/*   Updated: 2023/08/22 20:41:29 by sbouheni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,3 @@ int	ft_atoi(const char *str)
 	return (number * sign);
 }
 
-size_t get_time_stamp(void)
-{
-	struct timeval	time;
-	size_t timestamp;
-
-	gettimeofday(&time, NULL);
-	timestamp = (size_t)time.tv_sec * 1000 + (size_t)time.tv_usec / 1000;
-	return (timestamp);
-}
