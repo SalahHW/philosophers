@@ -6,16 +6,15 @@
 /*   By: sbouheni <sbouheni@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 16:29:46 by sbouheni          #+#    #+#             */
-/*   Updated: 2023/08/21 20:49:53 by sbouheni         ###   ########.fr       */
+/*   Updated: 2023/08/23 00:41:34 by sbouheni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-// Add philo into circular linked list
-int add_new_philo(t_data *data)
+int	add_new_philo(t_data *data)
 {
-	t_philo *new_philo;
+	t_philo	*new_philo;
 
 	new_philo = malloc(sizeof(t_philo));
 	if (!new_philo)
@@ -31,13 +30,15 @@ int add_new_philo(t_data *data)
 	return (1);
 }
 
-t_data *init_data(int argc, char **argv)
+t_data	*init_data(int argc, char **argv)
 {
-	t_data *data;
+	t_data	*data;
 
 	data = malloc(sizeof(t_data));
 	if (!data)
 		return (0);
+	data->start_time = get_time_stamp();
+	data->simulation_running = 1;
 	data->nb_philo = ft_atoi(argv[1]);
 	data->time_to_die = ft_atoi(argv[2]);
 	data->time_to_eat = ft_atoi(argv[3]);
@@ -53,18 +54,22 @@ t_data *init_data(int argc, char **argv)
 
 void	init_philo_data(t_data *data)
 {
-	int i = 0;
 	t_philo *philo;
+	int i;
 
 	philo = data->first_philo;
+	i = 0;
 	while (i < data->nb_philo)
 	{
 		philo->id = i + 1;
+		philo->simulation_running = 1;
+		philo->start_time = data->start_time;
 		philo->time_to_die = data->time_to_die;
 		philo->time_to_eat = data->time_to_eat;
 		philo->time_to_sleep = data->time_to_sleep;
 		philo->nb_eat = data->nb_eat;
-		philo->state = THINKING;
+		philo->nb_eat_done = 0;
+		philo->dead = 0;
 		pthread_mutex_init(&philo->fork, NULL);
 		philo = philo->next;
 		i++;
