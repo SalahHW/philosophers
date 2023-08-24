@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sbouheni <sbouheni@student.42mulhouse.f    +#+  +:+       +#+         #
+#    By: sbouheni <sbouheni@student.42mulhouse.fr>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/18 17:23:05 by sbouheni          #+#    #+#              #
-#    Updated: 2023/08/23 00:53:40 by sbouheni         ###   ########.fr        #
+#    Updated: 2023/08/24 22:35:13 by sbouheni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 

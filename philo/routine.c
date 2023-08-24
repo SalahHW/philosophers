@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbouheni <sbouheni@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: sbouheni <sbouheni@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/20 14:19:22 by sbouheni          #+#    #+#             */
-/*   Updated: 2023/08/24 21:41:11 by sbouheni         ###   ########.fr       */
+/*   Created: 2023/08/24 22:28:58 by sbouheni          #+#    #+#             */
+/*   Updated: 2023/08/24 22:29:57 by sbouheni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,17 @@ static int	eating(t_philo *philo)
 	if (!philo->data->simulation_running)
 		return (0);
 	printf("%lu %d has taken a fork\n", get_time_stamp()
-			- philo->data->start_time, philo->id);
+		- philo->data->start_time, philo->id);
 	pthread_mutex_lock(&philo->next->fork);
 	if (!philo->data->simulation_running)
 		return (0);
 	printf("%lu %d has taken a fork\n", get_time_stamp()
-			- philo->data->start_time, philo->id);
+		- philo->data->start_time, philo->id);
 	if (!philo->data->simulation_running)
 		return (0);
 	philo->last_meal = get_time_stamp();
 	printf("%lu %d is eating\n", get_time_stamp() - philo->data->start_time,
-			philo->id);
+		philo->id);
 	usleep(philo->data->time_to_eat * 1000);
 	philo->nb_eat_done++;
 	pthread_mutex_unlock(&philo->fork);
@@ -41,7 +41,7 @@ static int	sleeping(t_philo *philo)
 	if (!philo->data->simulation_running)
 		return (0);
 	printf("%lu %d is sleeping\n", get_time_stamp() - philo->data->start_time,
-			philo->id);
+		philo->id);
 	usleep(philo->data->time_to_sleep * 1000);
 	return (1);
 }
@@ -50,13 +50,13 @@ static int	thinking(t_philo *philo)
 {
 	if (philo->data->simulation_running)
 		printf("%lu %d is thinking\n", get_time_stamp()
-				- philo->data->start_time, philo->id);
+			- philo->data->start_time, philo->id);
 	return (1);
 }
 
 void	*philo_routine(void *arg)
 {
-	t_philo *philo;
+	t_philo	*philo;
 
 	philo = (t_philo *)arg;
 	philo->last_meal = get_time_stamp();

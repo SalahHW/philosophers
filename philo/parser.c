@@ -6,13 +6,13 @@
 /*   By: sbouheni <sbouheni@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 17:16:20 by sbouheni          #+#    #+#             */
-/*   Updated: 2023/08/20 14:39:43 by sbouheni         ###   ########.fr       */
+/*   Updated: 2023/08/24 22:35:13 by sbouheni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-static int check_argc(int argc)
+static int	check_argc(int argc)
 {
 	if (argc < 5 || argc > 6)
 		return (-1);
@@ -28,7 +28,6 @@ int	parse_arg(int argc, char **argv)
 	{
 		printf("Error: wrong number of arguments\n");
 		return (-1);
-
 	}
 	i = 1;
 	while (i < argc)

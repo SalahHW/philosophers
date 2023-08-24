@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbouheni <sbouheni@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: sbouheni <sbouheni@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 16:19:22 by sbouheni          #+#    #+#             */
-/*   Updated: 2023/08/24 21:28:03 by sbouheni         ###   ########.fr       */
+/*   Updated: 2023/08/24 22:33:06 by sbouheni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ static void	join_philo_threads(t_philo *philo)
 
 int	main(int argc, char **argv)
 {
-	t_data data;
-	t_philo *philo;
+	t_data	data;
+	t_philo	*philo;
 
 	philo = malloc(sizeof(t_philo));
 	if (parse_arg(argc, argv) == -1)

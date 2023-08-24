@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbouheni <sbouheni@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: sbouheni <sbouheni@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 00:03:40 by sbouheni          #+#    #+#             */
-/*   Updated: 2023/08/24 21:37:10 by sbouheni         ###   ########.fr       */
+/*   Updated: 2023/08/24 22:34:51 by sbouheni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	check_philo_health(t_philo *philo)
 	{
 		philo->data->simulation_running = 0;
 		printf("%lu %d died\n", get_time_stamp() - philo->data->start_time,
-				philo->id);
+			philo->id);
 		return (0);
 	}
 	return (1);
