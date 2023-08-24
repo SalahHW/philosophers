@@ -6,7 +6,7 @@
 /*   By: sbouheni <sbouheni@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 20:41:08 by sbouheni          #+#    #+#             */
-/*   Updated: 2023/08/24 22:32:14 by sbouheni         ###   ########.fr       */
+/*   Updated: 2023/08/24 22:37:26 by sbouheni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ size_t	get_time_stamp(void)
 	return (timestamp);
 }
 
-void	my_usleep(size_t time)
+void	my_msleep(size_t time)
 {
 	size_t	start_time;
 

@@ -6,7 +6,7 @@
 /*   By: sbouheni <sbouheni@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 16:21:36 by sbouheni          #+#    #+#             */
-/*   Updated: 2023/08/24 22:34:33 by sbouheni         ###   ########.fr       */
+/*   Updated: 2023/08/24 22:37:43 by sbouheni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void				init_data(int argc, char **argv, t_data *data);
 int					ft_atoi(const char *str);
 // time.c
 size_t				get_time_stamp(void);
-void				my_usleep(size_t time);
+void				my_msleep(size_t time);
 // routine.c
 void				*philo_routine(void *arg);
 // routine_utils.c
