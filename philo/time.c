@@ -6,7 +6,7 @@
 /*   By: sbouheni <sbouheni@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 20:41:08 by sbouheni          #+#    #+#             */
-/*   Updated: 2023/08/22 23:19:13 by sbouheni         ###   ########.fr       */
+/*   Updated: 2023/08/23 19:00:41 by sbouheni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,6 @@ size_t	get_time_stamp(void)
 	gettimeofday(&time, NULL);
 	timestamp = (size_t)time.tv_sec * 1000 + (size_t)time.tv_usec / 1000;
 	return (timestamp);
-}
-
-size_t	get_program_time(size_t start_time)
-{
-	size_t program_time;
-
-	program_time = get_time_stamp() - start_time;
-	return (program_time);
 }
 
 void	my_usleep(size_t time)

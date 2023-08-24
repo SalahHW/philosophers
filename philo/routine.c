@@ -6,87 +6,70 @@
 /*   By: sbouheni <sbouheni@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 14:19:22 by sbouheni          #+#    #+#             */
-/*   Updated: 2023/08/23 01:30:55 by sbouheni         ###   ########.fr       */
+/*   Updated: 2023/08/24 21:41:11 by sbouheni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-static	void stop_philo_simulation(t_data *data)
+static int	eating(t_philo *philo)
 {
-	t_philo *philo;
-	int i;
-
-	i = 0;
-	philo = data->first_philo;
-	while (i < data->nb_philo)
-	{
-		philo->simulation_running = 0;
-		philo = philo->next;
-		i++;
-	}
+	pthread_mutex_lock(&philo->fork);
+	if (!philo->data->simulation_running)
+		return (0);
+	printf("%lu %d has taken a fork\n", get_time_stamp()
+			- philo->data->start_time, philo->id);
+	pthread_mutex_lock(&philo->next->fork);
+	if (!philo->data->simulation_running)
+		return (0);
+	printf("%lu %d has taken a fork\n", get_time_stamp()
+			- philo->data->start_time, philo->id);
+	if (!philo->data->simulation_running)
+		return (0);
+	philo->last_meal = get_time_stamp();
+	printf("%lu %d is eating\n", get_time_stamp() - philo->data->start_time,
+			philo->id);
+	usleep(philo->data->time_to_eat * 1000);
+	philo->nb_eat_done++;
+	pthread_mutex_unlock(&philo->fork);
+	pthread_mutex_unlock(&philo->next->fork);
+	return (1);
 }
 
-static int all_philo_stopped(t_data *data)
+static int	sleeping(t_philo *philo)
 {
-	t_philo *philo;
-	int i;
+	if (!philo->data->simulation_running)
+		return (0);
+	printf("%lu %d is sleeping\n", get_time_stamp() - philo->data->start_time,
+			philo->id);
+	usleep(philo->data->time_to_sleep * 1000);
+	return (1);
+}
 
-	philo = data->first_philo;
-	i = 0;
-	while (i < data->nb_philo)
-	{
-		if (philo->simulation_running)
-			return (0);
-		philo = philo->next;
-		i++;
-	}
+static int	thinking(t_philo *philo)
+{
+	if (philo->data->simulation_running)
+		printf("%lu %d is thinking\n", get_time_stamp()
+				- philo->data->start_time, philo->id);
 	return (1);
 }
 
 void	*philo_routine(void *arg)
 {
-	t_philo	*philo;
+	t_philo *philo;
 
 	philo = (t_philo *)arg;
 	philo->last_meal = get_time_stamp();
 	if (philo->id % 2 == 0)
 		usleep(500);
-	while (!philo->dead && philo->simulation_running && (philo->nb_eat == -1
-		|| philo->nb_eat_done < philo->nb_eat))
+	while (philo->data->simulation_running)
 	{
 		if (!eating(philo))
-			return (NULL);
-		if (philo->nb_eat_done == philo->nb_eat && philo->nb_eat != -1)
 			return (NULL);
 		if (!sleeping(philo))
 			return (NULL);
 		if (!thinking(philo))
 			return (NULL);
-	}
-	return (NULL);
-}
-
-void	*health_routine(void *arg)
-{
-	t_data *data;
-	t_philo *philo;
-	data = (t_data *)arg;
-	philo = data->first_philo;
-	while (data->simulation_running)
-	{
-		// refresh_philo_data(philo);
-		if (philo->dead)
-		{
-			stop_philo_simulation(data);
-			return (NULL);
-		}
-		if (!philo->simulation_running)
-		{
-			if (all_philo_stopped(data))
-				return (NULL);
-		}
-		philo = philo->next;
 	}
 	return (NULL);
 }
