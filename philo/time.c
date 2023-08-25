@@ -6,7 +6,7 @@
 /*   By: sbouheni <sbouheni@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 20:41:08 by sbouheni          #+#    #+#             */
-/*   Updated: 2023/08/24 22:37:26 by sbouheni         ###   ########.fr       */
+/*   Updated: 2023/08/25 13:46:32 by sbouheni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	my_msleep(size_t time)
 {
 	size_t	start_time;
 
-	start_time = get_time_stamp() / 1000;
-	while ((get_time_stamp() / 1000) - (start_time / 1000) < time)
+	start_time = get_time_stamp();
+	while (get_time_stamp() - start_time < time)
 		get_time_stamp();
 }

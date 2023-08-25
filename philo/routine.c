@@ -6,7 +6,7 @@
 /*   By: sbouheni <sbouheni@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 22:28:58 by sbouheni          #+#    #+#             */
-/*   Updated: 2023/08/24 22:29:57 by sbouheni         ###   ########.fr       */
+/*   Updated: 2023/08/25 13:37:57 by sbouheni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	eating(t_philo *philo)
 	philo->last_meal = get_time_stamp();
 	printf("%lu %d is eating\n", get_time_stamp() - philo->data->start_time,
 		philo->id);
-	usleep(philo->data->time_to_eat * 1000);
+	my_msleep(philo->data->time_to_eat);
 	philo->nb_eat_done++;
 	pthread_mutex_unlock(&philo->fork);
 	pthread_mutex_unlock(&philo->next->fork);
@@ -42,7 +42,7 @@ static int	sleeping(t_philo *philo)
 		return (0);
 	printf("%lu %d is sleeping\n", get_time_stamp() - philo->data->start_time,
 		philo->id);
-	usleep(philo->data->time_to_sleep * 1000);
+	my_msleep(philo->data->time_to_sleep);
 	return (1);
 }
 
