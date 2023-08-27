@@ -6,7 +6,7 @@
 /*   By: sbouheni <sbouheni@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 00:03:40 by sbouheni          #+#    #+#             */
-/*   Updated: 2023/08/24 22:34:51 by sbouheni         ###   ########.fr       */
+/*   Updated: 2023/08/27 16:17:37 by sbouheni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,12 @@
 
 int	check_philo_health(t_philo *philo)
 {
-	if (get_time_stamp() - philo->last_meal > philo->data->time_to_die)
+	size_t last_philo_meal;
+
+	last_philo_meal = get_last_philo_meal(&philo->last_meal_mutex, philo->last_meal);
+	if (get_time_stamp() - last_philo_meal > philo->data->time_to_die)
 	{
-		philo->data->simulation_running = 0;
+		terminate_sim(&philo->data->sim_running_mutex, &philo->data->simulation_running);
 		printf("%lu %d died\n", get_time_stamp() - philo->data->start_time,
 			philo->id);
 		return (0);

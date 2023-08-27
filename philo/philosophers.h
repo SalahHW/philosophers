@@ -6,7 +6,7 @@
 /*   By: sbouheni <sbouheni@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 16:21:36 by sbouheni          #+#    #+#             */
-/*   Updated: 2023/08/24 22:37:43 by sbouheni         ###   ########.fr       */
+/*   Updated: 2023/08/27 16:16:20 by sbouheni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ typedef struct s_data
 	size_t			time_to_eat;
 	size_t			time_to_sleep;
 	int				nb_eat;
-	int				finished_eat;
-	pthread_t		health;
+	pthread_mutex_t	sim_running_mutex;
 }					t_data;
 
 typedef struct s_philo
@@ -38,6 +37,8 @@ typedef struct s_philo
 	int				nb_eat_done;
 	size_t			last_meal;
 	pthread_mutex_t	fork;
+	pthread_mutex_t	nb_eat_done_mutex;
+	pthread_mutex_t	last_meal_mutex;
 	pthread_t		thread;
 	t_data			*data;
 	struct s_philo	*next;
@@ -59,5 +60,13 @@ void				*philo_routine(void *arg);
 // routine_utils.c
 int					check_philo_health(t_philo *philo);
 int					has_finished_eat(t_philo *philo);
+// mutex_acces.c
+
+int					check_sim_status(pthread_mutex_t *mutex,
+						int simulation_running);
+void				terminate_sim(pthread_mutex_t *mutex, int *simulation_running);
+void				increment_value(pthread_mutex_t *mutex, int *value);
+void				refresh_meal(pthread_mutex_t *mutex, size_t *last_meal);
+size_t				get_last_philo_meal(pthread_mutex_t *mutex, size_t last_meal);
 
 #endif

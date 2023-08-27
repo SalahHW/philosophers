@@ -6,7 +6,7 @@
 /*   By: sbouheni <sbouheni@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 16:19:22 by sbouheni          #+#    #+#             */
-/*   Updated: 2023/08/24 22:33:06 by sbouheni         ###   ########.fr       */
+/*   Updated: 2023/08/27 16:29:56 by sbouheni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int	main(int argc, char **argv)
 {
 	t_data	data;
 	t_philo	*philo;
+	int sim_running;
 
 	philo = malloc(sizeof(t_philo));
 	if (parse_arg(argc, argv) == -1)
@@ -75,14 +76,17 @@ int	main(int argc, char **argv)
 	init_data(argc, argv, &data);
 	create_philo(philo, &data);
 	launch_philo_threads(philo);
-	while (philo->data->simulation_running)
+	sim_running = check_sim_status(&data.sim_running_mutex, data.simulation_running);
+	while (sim_running)
 	{
+		sim_running = check_sim_status(&data.sim_running_mutex, data.simulation_running);
 		check_philo_health(philo);
 		if (philo->data->nb_eat != -1)
 		{
 			if (has_finished_eat(philo))
-				philo->data->simulation_running = 0;
+				terminate_sim(&data.sim_running_mutex, &data.simulation_running);
 		}
+		sim_running = check_sim_status(&data.sim_running_mutex, data.simulation_running);
 	}
 	join_philo_threads(philo);
 }

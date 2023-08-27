@@ -6,7 +6,7 @@
 /*   By: sbouheni <sbouheni@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 16:29:46 by sbouheni          #+#    #+#             */
-/*   Updated: 2023/08/24 22:33:46 by sbouheni         ###   ########.fr       */
+/*   Updated: 2023/08/27 16:18:27 by sbouheni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	init_data(int argc, char **argv, t_data *data)
 	data->time_to_die = ft_atoi(argv[2]);
 	data->time_to_eat = ft_atoi(argv[3]);
 	data->time_to_sleep = ft_atoi(argv[4]);
-	data->finished_eat = 0;
 	if (argc == 6)
 		data->nb_eat = ft_atoi(argv[5]);
 	else
