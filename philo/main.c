@@ -6,7 +6,7 @@
 /*   By: sbouheni <sbouheni@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 16:19:22 by sbouheni          #+#    #+#             */
-/*   Updated: 2023/08/27 16:29:56 by sbouheni         ###   ########.fr       */
+/*   Updated: 2023/08/28 22:42:13 by sbouheni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ static void	create_philo(t_philo *philo, t_data *data)
 		philo->data = data;
 		philo->last_meal = get_time_stamp();
 		pthread_mutex_init(&philo->fork, NULL);
+		pthread_mutex_init(&philo->nb_eat_done_mutex, NULL);
+		pthread_mutex_init(&philo->last_meal_mutex, NULL);
 		if (i == data->nb_philo - 1)
 			break ;
 		philo->next = malloc(sizeof(t_philo));
@@ -64,29 +66,40 @@ static void	join_philo_threads(t_philo *philo)
 	philo = philo->next;
 }
 
-int	main(int argc, char **argv)
+void	simulation_monitor(t_philo *philo)
 {
-	t_data	data;
-	t_philo	*philo;
-	int sim_running;
+	int	sim_running;
 
-	philo = malloc(sizeof(t_philo));
-	if (parse_arg(argc, argv) == -1)
-		return (-1);
-	init_data(argc, argv, &data);
-	create_philo(philo, &data);
-	launch_philo_threads(philo);
-	sim_running = check_sim_status(&data.sim_running_mutex, data.simulation_running);
+	sim_running = check_sim_status(&philo->data->sim_running_mutex,
+			philo->data->simulation_running);
 	while (sim_running)
 	{
-		sim_running = check_sim_status(&data.sim_running_mutex, data.simulation_running);
+		sim_running = check_sim_status(&philo->data->sim_running_mutex,
+				philo->data->simulation_running);
 		check_philo_health(philo);
 		if (philo->data->nb_eat != -1)
 		{
 			if (has_finished_eat(philo))
-				terminate_sim(&data.sim_running_mutex, &data.simulation_running);
+				terminate_sim(&philo->data->sim_running_mutex,
+					&philo->data->simulation_running);
 		}
-		sim_running = check_sim_status(&data.sim_running_mutex, data.simulation_running);
+		sim_running = check_sim_status(&philo->data->sim_running_mutex,
+				philo->data->simulation_running);
 	}
+}
+
+int	main(int argc, char **argv)
+{
+	t_data	data;
+	t_philo	*philo;
+
+	philo = malloc(sizeof(t_philo));
+	if (!parse_arg(argc, argv))
+		return (-1);
+	init_data(argc, argv, &data);
+	create_philo(philo, &data);
+	launch_philo_threads(philo);
+	simulation_monitor(philo);
 	join_philo_threads(philo);
+	clear_all(philo);
 }

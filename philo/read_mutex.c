@@ -6,7 +6,7 @@
 /*   By: sbouheni <sbouheni@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 20:13:21 by sbouheni          #+#    #+#             */
-/*   Updated: 2023/08/27 16:15:44 by sbouheni         ###   ########.fr       */
+/*   Updated: 2023/08/28 22:42:23 by sbouheni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void	refresh_meal(pthread_mutex_t *mutex, size_t *last_meal)
 
 size_t	get_last_philo_meal(pthread_mutex_t *mutex, size_t last_meal)
 {
-	size_t last_philo_meal;
-	
+	size_t	last_philo_meal;
+
 	pthread_mutex_lock(mutex);
 	last_philo_meal = last_meal;
 	pthread_mutex_unlock(mutex);

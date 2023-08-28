@@ -6,11 +6,12 @@
 /*   By: sbouheni <sbouheni@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 16:29:46 by sbouheni          #+#    #+#             */
-/*   Updated: 2023/08/27 16:18:27 by sbouheni         ###   ########.fr       */
+/*   Updated: 2023/08/28 21:55:16 by sbouheni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+#include <pthread.h>
 
 void	init_data(int argc, char **argv, t_data *data)
 {
@@ -24,4 +25,5 @@ void	init_data(int argc, char **argv, t_data *data)
 		data->nb_eat = ft_atoi(argv[5]);
 	else
 		data->nb_eat = -1;
+	pthread_mutex_init(&data->sim_running_mutex, NULL);
 }

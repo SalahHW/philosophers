@@ -6,18 +6,19 @@
 #    By: sbouheni <sbouheni@student.42mulhouse.fr>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/18 17:23:05 by sbouheni          #+#    #+#              #
-#    Updated: 2023/08/27 16:51:49 by sbouheni         ###   ########.fr        #
+#    Updated: 2023/08/28 22:06:46 by sbouheni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=			philo
-CFLAGS	=			-Wall -Wextra -Werror -pthread
-COMPILE	=			gcc $(CFLAGS)
-DFLAGS	=			gcc $(CFLAGS) -g3 -fsanitize=thread
+CC 		=			gcc
+CFLAGS	=			-Wall -Wextra -Werror
+COMPILE	=			$(CC) $(CFLAGS) -pthread -g3
+DFLAGS	=			$(CC) $(CFLAGS) -pthread -g3 -fsanitize=thread
 
 SRCS	=			main.c										\
 					parser.c									\
-					error.c										\
+					exit.c										\
 					utils.c										\
 					routine.c									\
 					init.c										\
@@ -32,7 +33,10 @@ all:				$(NAME)
 $(NAME):			$(OBJS)
 					$(COMPILE) $(OBJS) -o $(NAME)
 
-debug	:			$(OBJS)
+%.o:				%.c
+					$(COMPILE) -c $< -o $@
+
+debug	:			fclean $(OBJS)
 					$(DFLAGS) $(OBJS) -o $(NAME)
 
 clean:
