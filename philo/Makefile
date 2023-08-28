@@ -6,7 +6,7 @@
 #    By: sbouheni <sbouheni@student.42mulhouse.fr>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/18 17:23:05 by sbouheni          #+#    #+#              #
-#    Updated: 2023/08/28 22:06:46 by sbouheni         ###   ########.fr        #
+#    Updated: 2023/08/28 23:20:04 by sbouheni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,6 @@ SRCS	=			main.c										\
 					init.c										\
 					time.c										\
 					routine_utils.c								\
-					read_mutex.c								\
 
 OBJS	=			$(SRCS:.c=.o)
 

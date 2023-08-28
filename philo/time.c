@@ -6,7 +6,7 @@
 /*   By: sbouheni <sbouheni@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 20:41:08 by sbouheni          #+#    #+#             */
-/*   Updated: 2023/08/28 22:35:04 by sbouheni         ###   ########.fr       */
+/*   Updated: 2023/08/28 22:58:14 by sbouheni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,14 @@ int	my_msleep(size_t time, t_data *data)
 	int		sim_running;
 
 	start_time = get_time_stamp();
-	sim_running = check_sim_status(&data->sim_running_mutex,
-			data->simulation_running);
+	pthread_mutex_lock(&data->sim_running_mutex);
+	sim_running = data->simulation_running;
+	pthread_mutex_unlock(&data->sim_running_mutex);
 	while (get_time_stamp() - start_time < time && sim_running)
 	{
-		sim_running = check_sim_status(&data->sim_running_mutex,
-				data->simulation_running);
+		pthread_mutex_lock(&data->sim_running_mutex);
+		sim_running = data->simulation_running;
+		pthread_mutex_unlock(&data->sim_running_mutex);
 		if (!sim_running)
 			return (0);
 	}

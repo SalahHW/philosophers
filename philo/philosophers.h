@@ -6,7 +6,7 @@
 /*   By: sbouheni <sbouheni@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 16:21:36 by sbouheni          #+#    #+#             */
-/*   Updated: 2023/08/28 22:35:57 by sbouheni         ###   ########.fr       */
+/*   Updated: 2023/08/28 23:19:37 by sbouheni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,4 @@ void				*philo_routine(void *arg);
 // routine_utils.c
 int					check_philo_health(t_philo *philo);
 int					has_finished_eat(t_philo *philo);
-// mutex_acces.c
-int					check_sim_status(pthread_mutex_t *mutex,
-						int simulation_running);
-void				terminate_sim(pthread_mutex_t *mutex,
-						int *simulation_running);
-void				increment_value(pthread_mutex_t *mutex, int *value);
-void				refresh_meal(pthread_mutex_t *mutex, size_t *last_meal);
-size_t				get_last_philo_meal(pthread_mutex_t *mutex,
-						size_t last_meal);
-
 #endif

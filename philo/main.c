@@ -6,7 +6,7 @@
 /*   By: sbouheni <sbouheni@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 16:19:22 by sbouheni          #+#    #+#             */
-/*   Updated: 2023/08/28 22:42:13 by sbouheni         ###   ########.fr       */
+/*   Updated: 2023/08/28 23:08:10 by sbouheni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,21 +70,27 @@ void	simulation_monitor(t_philo *philo)
 {
 	int	sim_running;
 
-	sim_running = check_sim_status(&philo->data->sim_running_mutex,
-			philo->data->simulation_running);
+	pthread_mutex_lock(&philo->data->sim_running_mutex);
+	sim_running = philo->data->simulation_running;
+	pthread_mutex_unlock(&philo->data->sim_running_mutex);
 	while (sim_running)
 	{
-		sim_running = check_sim_status(&philo->data->sim_running_mutex,
-				philo->data->simulation_running);
+		pthread_mutex_lock(&philo->data->sim_running_mutex);
+		sim_running = philo->data->simulation_running;
+		pthread_mutex_unlock(&philo->data->sim_running_mutex);
 		check_philo_health(philo);
 		if (philo->data->nb_eat != -1)
 		{
 			if (has_finished_eat(philo))
-				terminate_sim(&philo->data->sim_running_mutex,
-					&philo->data->simulation_running);
+			{
+				pthread_mutex_lock(&philo->data->sim_running_mutex);
+				philo->data->simulation_running = 0;
+				pthread_mutex_unlock(&philo->data->sim_running_mutex);
+			}
 		}
-		sim_running = check_sim_status(&philo->data->sim_running_mutex,
-				philo->data->simulation_running);
+		pthread_mutex_lock(&philo->data->sim_running_mutex);
+		sim_running = philo->data->simulation_running;
+		pthread_mutex_unlock(&philo->data->sim_running_mutex);
 	}
 }
 
