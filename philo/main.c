@@ -6,7 +6,7 @@
 /*   By: sbouheni <sbouheni@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 16:19:22 by sbouheni          #+#    #+#             */
-/*   Updated: 2023/08/28 23:08:10 by sbouheni         ###   ########.fr       */
+/*   Updated: 2023/08/29 14:49:23 by sbouheni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,16 @@ int	main(int argc, char **argv)
 	t_data	data;
 	t_philo	*philo;
 
-	philo = malloc(sizeof(t_philo));
 	if (!parse_arg(argc, argv))
 		return (-1);
+	if (ft_atoi(argv[1]) == 1)
+	{
+		printf("1 1 has taken a fork\n");
+		usleep(ft_atoi(argv[2]) * 1000);
+		printf("%d 1 died\n", ft_atoi(argv[2]) + 1);
+		return (0);
+	}
+	philo = malloc(sizeof(t_philo));
 	init_data(argc, argv, &data);
 	create_philo(philo, &data);
 	launch_philo_threads(philo);
