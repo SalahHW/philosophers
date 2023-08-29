@@ -6,7 +6,7 @@
 /*   By: sbouheni <sbouheni@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 22:28:58 by sbouheni          #+#    #+#             */
-/*   Updated: 2023/08/29 14:47:51 by sbouheni         ###   ########.fr       */
+/*   Updated: 2023/08/29 15:57:14 by sbouheni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,12 @@
 
 static void	take_fork(t_philo *philo)
 {
-	if (philo->id % 2 == 0)
-	{
-		pthread_mutex_lock(&philo->fork);
-		printf("%lu %d has taken a fork\n", get_time_stamp()
-			- philo->data->start_time, philo->id);
-		pthread_mutex_lock(&philo->next->fork);
-		printf("%lu %d has taken a fork\n", get_time_stamp()
-			- philo->data->start_time, philo->id);
-	}
-	else
-	{
-		pthread_mutex_lock(&philo->next->fork);
-		printf("%lu %d has taken a fork\n", get_time_stamp()
-			- philo->data->start_time, philo->id);
-		pthread_mutex_lock(&philo->fork);
-		printf("%lu %d has taken a fork\n", get_time_stamp()
-			- philo->data->start_time, philo->id);
-	}
+	pthread_mutex_lock(&philo->fork);
+	printf("%lu %d has taken a fork\n", get_time_stamp()
+		- philo->data->start_time, philo->id);
+	pthread_mutex_lock(&philo->next->fork);
+	printf("%lu %d has taken a fork\n", get_time_stamp()
+		- philo->data->start_time, philo->id);
 }
 
 static int	eating(t_philo *philo)
@@ -102,7 +90,7 @@ void	*philo_routine(void *arg)
 	philo->last_meal = get_time_stamp();
 	pthread_mutex_unlock(&philo->last_meal_mutex);
 	if (philo->id % 2 == 0)
-		if (!my_msleep(philo->data->time_to_die / 3, philo->data))
+		if (!my_msleep(1, philo->data))
 			return (NULL);
 	pthread_mutex_lock(&philo->data->sim_running_mutex);
 	sim_running = philo->data->simulation_running;
